@@ -1,11 +1,11 @@
-#include "classes.h"
+#include "../Classes/scene.h"
 #include "inputs.cpp"
 #include "render.cpp"
 #include "calculations.cpp"
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 
-int loop(skene skene, int argc, char* argv[]) {
+int Loop(Scene skene, int argc, char* argv[]) {
 
     if (!SDL_Init(SDL_INIT_VIDEO)) {
         SDL_Log("SDL_Init Error: %s", SDL_GetError());
@@ -34,10 +34,10 @@ int loop(skene skene, int argc, char* argv[]) {
         }
 
         //logiikka
-        calculations(skene);
+        Calculations(skene);
 
         //kuvan renderöinti
-        render(renderer);
+        Render(renderer);
     }
 
     SDL_DestroyWindow(window);
