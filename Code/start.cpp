@@ -1,23 +1,32 @@
 #include "../Headers/engine_functions.h"
 
-Scene LoadScene(SDL_Renderer* renderer){
+Scene LoadScene(){
     Scene sc;
-
-    // Create a new GameObject
     GameObject player;
     player.id = 1;
     player.name = "Player";
-    player.transform = { 100, 100, 64, 64 }; // Positioned at 100,100
+    player.position = { 100, 100 };
+    player.size = { 64, 64 };
 
-    // Load the texture for this specific object
-    SDL_Surface* surface = SDL_LoadBMP("./Assets/smile.bmp");
+    SDL_Surface* surface = SDL_LoadBMP("Assets/smile.bmp");
     if (surface) {
-        player.texture = SDL_CreateTextureFromSurface(renderer, surface);
+        // Convert to RGBA to ensure compatibility with glTexImage2D
+        SDL_Surface* formattedSurface = SDL_ConvertSurface(surface, SDL_PIXELFORMAT_RGBA32);
+        
+        unsigned int id;
+        glGenTextures(1, &id);
+        glBindTexture(GL_TEXTURE_2D, id);
+    
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, formattedSurface->w, formattedSurface->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, formattedSurface->pixels);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    
+        player.textureID = id;
+        SDL_DestroySurface(formattedSurface);
         SDL_DestroySurface(surface);
+    } else {
+        SDL_Log("BMP Load Failed: %s", SDL_GetError());
     }
 
-    // Add the object to the scene
     sc.gameObjects.push_back(player);
-
     return sc;
 }

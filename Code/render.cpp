@@ -1,16 +1,38 @@
 #include "../Headers/engine_functions.h"
 
-void Render(SDL_Renderer* renderer, Scene& scene) {
-        SDL_SetRenderDrawColor(renderer, 150, 20, 20, 255);
-    SDL_RenderClear(renderer);
+Shader* mainShader = nullptr;
+Sprite* quadSprite = nullptr;
 
-    for (const auto& obj : scene.gameObjects) {
-        if (obj.texture != nullptr) {
-            SDL_RenderTexture(renderer, obj.texture, NULL, &obj.transform);
-        }else {
-            SDL_Log("Object %s has a NULL texture!", obj.name.c_str());
-        }
+void Render(SDL_Window* window, Scene& scene) {
+    if (!mainShader) {
+        mainShader = new Shader("Shaders/default.vert", "Shaders/default.frag"); 
+        quadSprite = new Sprite();
     }
 
-    SDL_RenderPresent(renderer);
+    glClearColor(0.58f, 0.07f, 0.07f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    mainShader->use();
+    
+    glm::mat4 projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f);
+    mainShader->setMat4("projection", projection);
+
+    for (const auto& obj : scene.gameObjects) {
+        if (obj.textureID == 0) {
+             SDL_Log("Object %s has no OpenGL texture loaded!", obj.name.c_str());
+             continue;
+        }
+
+        glm::mat4 model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(obj.position.x, obj.position.y, 0.0f));
+        model = glm::scale(model, glm::vec3(obj.size.w, obj.size.h, 1.0f));
+        
+        // Pass "model" to your shader (you'll need to add 'uniform mat4 model' to vertex shader)
+        mainShader->setMat4("model", model);
+
+        glBindTexture(GL_TEXTURE_2D, obj.textureID);
+        quadSprite->Draw();
+    }
+
+    SDL_GL_SwapWindow(window);
 }

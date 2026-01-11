@@ -8,21 +8,37 @@ int Loop(int argc, char* argv[]) {
         return 1;
     }
 
-    SDL_Window* window = NULL;
-    SDL_Renderer* renderer = NULL;
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
-    if (!SDL_CreateWindowAndRenderer("HulluEngine", 800, 600, 0, &window, &renderer)) {
-        SDL_Log("Couldn't create window/renderer: %s", SDL_GetError());
+    SDL_Window* window = SDL_CreateWindow("HulluEngine 2.5D", 800, 600, SDL_WINDOW_OPENGL);
+    if (!window) {
+        SDL_Log("Window creation failed: %s", SDL_GetError());
         return 1;
     }
 
+    SDL_GLContext glContext = SDL_GL_CreateContext(window);
+    if (!glContext) {
+        SDL_Log("OpenGL Context creation failed: %s", SDL_GetError());
+        return 1;
+    }
+
+    glewExperimental = GL_TRUE;
+    if (glewInit() != GLEW_OK) {
+        SDL_Log("Failed to initialize GLEW");
+        return 1;
+    }
+
+    glEnable(GL_DEPTH_TEST);
+
     bool running = true;
     SDL_Event event;
-    Scene scene = LoadScene(renderer);
+    
+    Scene scene = LoadScene(); 
     Uint64 lastTime = SDL_GetTicks();
 
     while (running) {
-
         Uint64 currentTime = SDL_GetTicks();
         float deltaTime = (currentTime - lastTime) / 1000.0f;
         lastTime = currentTime;
@@ -33,12 +49,11 @@ int Loop(int argc, char* argv[]) {
             }
         }
 
-        //logiikka
         Calculations(scene, deltaTime);
 
-        //kuvan renderöinti
-        Render(renderer, scene);
+        Render(window, scene);
     }
-    Shutdown(scene,window);
+
+    Shutdown(scene, window, glContext);
     return 0;
 }

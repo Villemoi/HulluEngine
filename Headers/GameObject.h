@@ -7,8 +7,13 @@
 struct GameObject {
     int id;
     std::string name;
-    SDL_Texture* texture = nullptr;
-    SDL_FRect transform = { 0, 0, 100, 100 }; // x, y, width, height
+    unsigned int textureID = 0;
+    struct {
+        float x, y, z;
+    } position = { 0.0f, 0.0f, 0.0f };
+    struct {
+        float w, h;
+    } size = { 1.0f, 1.0f };
 };
 
 #endif
