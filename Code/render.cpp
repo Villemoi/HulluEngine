@@ -1,13 +1,18 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
+#include "../Classes/scene.h"
 
-void Render(SDL_Renderer* renderer) {
-            // 1. Set the draw color (R, G, B, A) -> Let's go with a dark red
+void Render(SDL_Renderer* renderer, Scene& scene) {
         SDL_SetRenderDrawColor(renderer, 150, 20, 20, 255);
+    SDL_RenderClear(renderer);
 
-        // 2. Clear the screen with that color
-        SDL_RenderClear(renderer);
+    for (const auto& obj : scene.gameObjects) {
+        if (obj.texture != nullptr) {
+            SDL_RenderTexture(renderer, obj.texture, NULL, &obj.transform);
+        }else {
+            SDL_Log("Object %s has a NULL texture!", obj.name.c_str());
+        }
+    }
 
-        // 3. Present the new frame to the window
-        SDL_RenderPresent(renderer);
+    SDL_RenderPresent(renderer);
 }

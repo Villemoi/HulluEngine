@@ -1,11 +1,9 @@
-#include "../Classes/scene.h"
-#include "inputs.cpp"
-#include "render.cpp"
-#include "calculations.cpp"
+#include "engine_functions.h"
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 
-int Loop(Scene skene, int argc, char* argv[]) {
+
+int Loop(int argc, char* argv[]) {
 
     if (!SDL_Init(SDL_INIT_VIDEO)) {
         SDL_Log("SDL_Init Error: %s", SDL_GetError());
@@ -25,7 +23,15 @@ int Loop(Scene skene, int argc, char* argv[]) {
 
     int counter = 0;
 
+    Scene scene = LoadScene(renderer);
+
+    Uint64 lastTime = SDL_GetTicks();
+
     while (running) {
+
+        Uint64 currentTime = SDL_GetTicks();
+        float deltaTime = (currentTime - lastTime) / 1000.0f;
+        lastTime = currentTime;
 
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_EVENT_QUIT) {
@@ -34,13 +40,11 @@ int Loop(Scene skene, int argc, char* argv[]) {
         }
 
         //logiikka
-        Calculations(skene);
+        Calculations(scene, deltaTime);
 
         //kuvan renderöinti
-        Render(renderer);
+        Render(renderer, scene);
     }
-
-    SDL_DestroyWindow(window);
-    SDL_Quit();
+    Shutdown(scene,window);
     return 0;
 }

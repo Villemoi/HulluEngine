@@ -1,8 +1,0 @@
-#ifndef OBJECT_H
-#define OBJECT_H
-
-struct Object {
-    int id;
-};
-
-#endif

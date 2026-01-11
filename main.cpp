@@ -1,12 +1,7 @@
-#include "./Classes/scene.h"
-#include "./Code/start.cpp"
-#include "./Code/loop.cpp"
-#include "./Code/shutdown.cpp"
+#include "./Code/engine_functions.h"
 
 int main(int argc, char* argv[]) {
-    Scene sk = LoadScene();
-    Loop(sk, argc, argv);
-    Shutdown();
+    Loop(argc, argv);
     return 0;
 }
 

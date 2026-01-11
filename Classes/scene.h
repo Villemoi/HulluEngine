@@ -1,10 +1,10 @@
 #ifndef SCENE_H
 #define SCENE_H
-#include "object.h"
+#include "GameObject.h"
+#include <vector>
 
 struct Scene {
-    Object object1;
-    Object object2;
+    std::vector<GameObject> gameObjects;
 };
 
 // Declare the function so other files know it exists
