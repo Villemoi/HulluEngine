@@ -1,6 +1,12 @@
-#include <iostream>
+#include "classes.h"
+#include "start.cpp"
+#include "loop.cpp"
+#include "shutdown.cpp"
 
 int main() {
-    std::cout << "Hello World!" << std::endl;
+    skene sk = start();
+    loop(sk);
+    shutdown();
     return 0;
 }
+
