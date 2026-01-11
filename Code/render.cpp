@@ -1,6 +1,4 @@
-#include <SDL3/SDL.h>
-#include <SDL3/SDL_main.h>
-#include "../Classes/scene.h"
+#include "engine_functions.h"
 
 void Render(SDL_Renderer* renderer, Scene& scene) {
         SDL_SetRenderDrawColor(renderer, 150, 20, 20, 255);

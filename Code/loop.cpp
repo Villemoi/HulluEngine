@@ -1,6 +1,4 @@
 #include "engine_functions.h"
-#include <SDL3/SDL.h>
-#include <SDL3/SDL_main.h>
 
 
 int Loop(int argc, char* argv[]) {
@@ -20,11 +18,7 @@ int Loop(int argc, char* argv[]) {
 
     bool running = true;
     SDL_Event event;
-
-    int counter = 0;
-
     Scene scene = LoadScene(renderer);
-
     Uint64 lastTime = SDL_GetTicks();
 
     while (running) {

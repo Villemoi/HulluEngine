@@ -1,4 +1,4 @@
-#include "../Classes/scene.h"
+#include "engine_functions.h"
 
 Scene LoadScene(SDL_Renderer* renderer){
     Scene sc;
