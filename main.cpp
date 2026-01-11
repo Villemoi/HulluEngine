@@ -3,9 +3,9 @@
 #include "loop.cpp"
 #include "shutdown.cpp"
 
-int main() {
+int main(int argc, char* argv[]) {
     skene sk = start();
-    loop(sk);
+    loop(sk, argc, argv);
     shutdown();
     return 0;
 }
