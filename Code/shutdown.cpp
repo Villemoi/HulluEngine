@@ -1,4 +1,4 @@
-#include "engine_functions.h"
+#include "../Headers/engine_functions.h"
 
 void Shutdown(Scene& scene, SDL_Window* window) {
     for (auto& obj : scene.gameObjects) {

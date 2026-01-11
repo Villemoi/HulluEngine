@@ -4,7 +4,7 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_video.h>
 #include <SDL3/SDL_main.h>
-#include "../Classes/scene.h"
+#include "Scene.h"
 
 Scene LoadScene(SDL_Renderer* renderer);
 
