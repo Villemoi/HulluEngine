@@ -1,5 +1,7 @@
 #include <iostream>
 #include "classes.h"
+#include "inputs.cpp"
+#include "calculations.cpp"
 
 int loop(skene skene) {
     bool running = true;
@@ -8,14 +10,10 @@ int loop(skene skene) {
 
     while (running) {
         //inputit
+        inputs();
         //peli laskut
-        counter++;
-        std::cout << counter << std::endl;
-        if(counter == 10){
-            std::cout << skene.objekti1.id << std::endl;
-            std::cout << skene.objekti2.id << std::endl;
-            running = false;
-        }
+        calculations(counter, skene, running);
+
         //kuvan renderöinti
 
     }
