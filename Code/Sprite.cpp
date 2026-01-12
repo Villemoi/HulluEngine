@@ -1,7 +1,6 @@
 #include "../Headers/Sprite.h"
 
 Sprite::Sprite() {
-    // Define a standard 1x1 unit square centered at 0,0 or starting at 0,0
     float vertices[] = {
         1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // top right
         1.0f, 1.0f, 0.0f, 1.0f, 1.0f, // bottom right

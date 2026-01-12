@@ -7,7 +7,6 @@ struct Scene {
     std::vector<GameObject> gameObjects;
 };
 
-// Declare the function so other files know it exists
 Scene LoadScene(); 
 
 #endif

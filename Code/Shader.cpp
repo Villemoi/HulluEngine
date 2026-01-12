@@ -9,25 +9,20 @@ Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath) {
     std::ifstream vShaderFile;
     std::ifstream fShaderFile;
 
-    // Ensure ifstream objects can throw exceptions:
     vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
     fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 
     try {
-        // Open files
         vShaderFile.open(vertexPath);
         fShaderFile.open(fragmentPath);
         std::stringstream vShaderStream, fShaderStream;
         
-        // Read file's buffer contents into streams
         vShaderStream << vShaderFile.rdbuf();
         fShaderStream << fShaderFile.rdbuf();
         
-        // Close file handlers
         vShaderFile.close();
         fShaderFile.close();
         
-        // Convert stream into string
         vertexCode = vShaderStream.str();
         fragmentCode = fShaderStream.str();
     }
@@ -42,7 +37,6 @@ Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath) {
     int success;
     char infoLog[512];
 
-    // Vertex Shader
     vertex = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertex, 1, &vShaderCode, NULL);
     glCompileShader(vertex);
@@ -52,7 +46,6 @@ Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath) {
         SDL_Log("ERROR::SHADER::VERTEX::COMPILATION_FAILED\n%s", infoLog);
     }
 
-    // Fragment Shader
     fragment = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fragment, 1, &fShaderCode, NULL);
     glCompileShader(fragment);
@@ -62,7 +55,6 @@ Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath) {
         SDL_Log("ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n%s", infoLog);
     }
 
-    // Shader Program
     ID = glCreateProgram();
     glAttachShader(ID, vertex);
     glAttachShader(ID, fragment);

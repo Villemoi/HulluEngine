@@ -10,7 +10,6 @@ Scene LoadScene(){
 
     SDL_Surface* surface = SDL_LoadBMP("Assets/smile.bmp");
     if (surface) {
-        // Convert to RGBA to ensure compatibility with glTexImage2D
         SDL_Surface* formattedSurface = SDL_ConvertSurface(surface, SDL_PIXELFORMAT_RGBA32);
         
         unsigned int id;

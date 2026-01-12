@@ -27,7 +27,6 @@ void Render(SDL_Window* window, Scene& scene) {
         model = glm::translate(model, glm::vec3(obj.position.x, obj.position.y, 0.0f));
         model = glm::scale(model, glm::vec3(obj.size.w, obj.size.h, 1.0f));
         
-        // Pass "model" to your shader (you'll need to add 'uniform mat4 model' to vertex shader)
         mainShader->setMat4("model", model);
 
         glBindTexture(GL_TEXTURE_2D, obj.textureID);
