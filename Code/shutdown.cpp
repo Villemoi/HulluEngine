@@ -6,8 +6,8 @@ extern Sprite* quadSprite;
 void Shutdown(Scene& scene, SDL_Window* window, SDL_GLContext glContext) {
 
     for (auto& obj : scene.gameObjects) {
-        if (obj.textureID != 0) {
-            glDeleteTextures(1, &obj.textureID);
+        if (obj->textureID != 0) {
+            glDeleteTextures(1, &obj->textureID);
         }
     }
 

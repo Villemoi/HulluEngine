@@ -4,7 +4,7 @@
 #include <vector>
 
 struct Scene {
-    std::vector<GameObject> gameObjects;
+    std::vector<std::unique_ptr<GameObject>> gameObjects;
 };
 
 Scene LoadScene(); 

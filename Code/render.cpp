@@ -18,18 +18,18 @@ void Render(SDL_Window* window, Scene& scene) {
     mainShader->setMat4("projection", projection);
 
     for (const auto& obj : scene.gameObjects) {
-        if (obj.textureID == 0) {
-             SDL_Log("Object %s has no OpenGL texture loaded!", obj.name.c_str());
+        if (obj->textureID == 0) {
+             SDL_Log("Object %s has no OpenGL texture loaded!", obj->name.c_str());
              continue;
         }
 
         glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(obj.position.x, obj.position.y, 0.0f));
-        model = glm::scale(model, glm::vec3(obj.size.w, obj.size.h, 1.0f));
+        model = glm::translate(model, glm::vec3(obj->position.x, obj->position.y, 0.0f));
+        model = glm::scale(model, glm::vec3(obj->size.w, obj->size.h, 1.0f));
         
         mainShader->setMat4("model", model);
 
-        glBindTexture(GL_TEXTURE_2D, obj.textureID);
+        glBindTexture(GL_TEXTURE_2D, obj->textureID);
         quadSprite->Draw();
     }
 
