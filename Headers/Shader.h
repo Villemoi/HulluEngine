@@ -15,6 +15,7 @@ public:
     void use();
     void setMat4(const std::string& name, const glm::mat4& mat) const;
     void setInt(const std::string& name, int value) const;
+    void setVec2(const std::string& name, const glm::vec2& value) const;
 };
 
 #endif

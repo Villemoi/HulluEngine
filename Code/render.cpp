@@ -29,6 +29,13 @@ void Render(SDL_Window* window, Scene& scene) {
         
         mainShader->setMat4("model", model);
 
+        float scaleX = 1.0f / obj->totalFrames; 
+        glm::vec2 uScale = glm::vec2(scaleX, 1.0f);
+        glm::vec2 uOffset = glm::vec2(obj->currentFrame * scaleX, 0.0f);
+
+        mainShader->setVec2("uScale", uScale);
+        mainShader->setVec2("uOffset", uOffset);
+
         glBindTexture(GL_TEXTURE_2D, obj->textureID);
         quadSprite->Draw();
     }

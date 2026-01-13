@@ -10,6 +10,12 @@ struct GameObject {
     int id;
     std::string name;
     unsigned int textureID = 0;
+
+    int totalFrames = 4;
+    int currentFrame = 0;
+    float frameTimer = 0.0f;
+    float frameDuration = 0.15f;
+
     struct Vector3{
         float x, y, z;
     } position = { 0.0f, 0.0f, 0.0f };
