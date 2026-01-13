@@ -26,6 +26,6 @@ Scene LoadScene(){
         SDL_Log("BMP Load Failed: %s", SDL_GetError());
     }
 
-    sc.gameObjects.push_back(player);
+    sc.gameObjects.push_back(std::move(player));
     return sc;
 }
