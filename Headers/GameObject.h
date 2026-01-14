@@ -5,16 +5,18 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include "AnimationController.h"
 
 struct GameObject {
     int id;
     std::string name;
     unsigned int textureID = 0;
-
-    int totalFrames = 4;
+    
     int currentFrame = 0;
-    float frameTimer = 0.0f;
-    float frameDuration = 0.15f;
+    int totalFramesInSheet = 4;
+    std::unique_ptr<AnimationController> animator;
+
+    GameObject() : animator(std::make_unique<AnimationController>()) {}
 
     struct Vector3{
         float x, y, z;

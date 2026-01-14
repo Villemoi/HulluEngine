@@ -4,10 +4,18 @@ void Calculations(Scene& scene, float deltaTime) {
     if (!scene.gameObjects.empty()) {
 
         //this handles the animation
-        scene.gameObjects[0]->frameTimer += deltaTime;
-        if (scene.gameObjects[0]->frameTimer >= scene.gameObjects[0]->frameDuration) {
-            scene.gameObjects[0]->currentFrame = (scene.gameObjects[0]->currentFrame + 1) % scene.gameObjects[0]->totalFrames;
-            scene.gameObjects[0]->frameTimer = 0.0f;
+        if (scene.gameObjects[0]->animator) {
+            scene.gameObjects[0]->animator->update(deltaTime, scene.gameObjects[0]->currentFrame);
+        }
+
+        bool isMoving = Input::IsKeyDown(SDL_SCANCODE_W) ||
+                        Input::IsKeyDown(SDL_SCANCODE_S) ||
+                        Input::IsKeyDown(SDL_SCANCODE_A) ||
+                        Input::IsKeyDown(SDL_SCANCODE_D);
+        if (isMoving) {
+            scene.gameObjects[0]->animator->play("Walk");
+        } else {
+            scene.gameObjects[0]->animator->play("Idle");
         }
 
         //this handles the movement

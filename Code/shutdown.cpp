@@ -1,4 +1,6 @@
 #include "../Headers/engine_functions.h"
+#include "../Headers/Shader.h"
+#include "../Headers/Sprite.h"
 
 extern Shader* mainShader; 
 extern Sprite* quadSprite;
