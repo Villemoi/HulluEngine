@@ -2,7 +2,10 @@
 #include "../Headers/SpriteAnimation.h"
 
 Scene LoadScene(){
+    //Create Scene
     Scene sc;
+
+    //Create Player Game Object
     auto player = std::make_unique<GameObject>();
     player->id = 1;
     player->name = "Player";
@@ -21,6 +24,7 @@ Scene LoadScene(){
     
     player->animator->play("Idle");
 
+    //Add a texture to the Player Game Object
     SDL_Surface* surface = SDL_LoadBMP("Assets/smile.bmp");
     if (surface) {
         SDL_Surface* formattedSurface = SDL_ConvertSurface(surface, SDL_PIXELFORMAT_RGBA32);
@@ -39,6 +43,7 @@ Scene LoadScene(){
         SDL_Log("BMP Load Failed: %s", SDL_GetError());
     }
 
-    sc.gameObjects.push_back(std::move(player));
+    //Add the Player Game Object to the Scene
+    sc.gameObjects.push_back(std::move(player)); 
     return sc;
 }

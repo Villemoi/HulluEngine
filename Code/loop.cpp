@@ -2,34 +2,39 @@
 
 
 int Loop(int argc, char* argv[]) {
-
+    //Initialize SDL
     if (!SDL_Init(SDL_INIT_VIDEO)) {
         SDL_Log("SDL_Init Error: %s", SDL_GetError());
         return 1;
     }
 
+    //Load OpenGL
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
+    //Create Window
     SDL_Window* window = SDL_CreateWindow("HulluEngine 2.5D", 800, 600, SDL_WINDOW_OPENGL);
     if (!window) {
         SDL_Log("Window creation failed: %s", SDL_GetError());
         return 1;
     }
 
+    //Create context for OpenGL
     SDL_GLContext glContext = SDL_GL_CreateContext(window);
     if (!glContext) {
         SDL_Log("OpenGL Context creation failed: %s", SDL_GetError());
         return 1;
     }
 
+    //Initialize GLEW
     glewExperimental = GL_TRUE;
     if (glewInit() != GLEW_OK) {
         SDL_Log("Failed to initialize GLEW");
         return 1;
     }
 
+    //Enable OpenGL
     glEnable(GL_DEPTH_TEST);
 
     bool running = true;
