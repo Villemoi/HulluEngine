@@ -26,7 +26,7 @@
                 "isDefault": true
             },
             "dependsOn": "CMake: Configure",
-            "problemMatcher": "$gcc"
+            "problemMatcher": []
         },
         {
             "label": "Run HulluEngine",
