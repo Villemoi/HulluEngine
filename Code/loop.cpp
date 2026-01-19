@@ -39,8 +39,9 @@ int Loop(int argc, char* argv[]) {
 
     bool running = true;
     SDL_Event event;
-    
-    Scene scene = LoadScene(); 
+    Game game = LoadGame();
+    Scene* scene = game.scenes[0].get();
+    PrefabManager* prefabManager = game.prefabs.get();
     Uint64 lastTime = SDL_GetTicks();
 
     while (running) {
@@ -54,7 +55,7 @@ int Loop(int argc, char* argv[]) {
             }
         }
 
-        Calculations(scene, deltaTime);
+        Calculations(scene, deltaTime, prefabManager);
 
         //Delete all GameObjects that have been marked for deletion
         CleanupScene(scene);

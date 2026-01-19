@@ -1,9 +1,10 @@
 #include "../Headers/engine_functions.h"
 #include "../Headers/SpriteAnimation.h"
 
-Scene LoadScene(){
-    //Create Scene
-    Scene sc;
+Game LoadGame(){
+    Game game;
+    auto scene = std::make_unique<Scene>(LoadScene());
+    game.scenes.push_back(std::move(scene));
 
     //Create "slime prefab"
     auto slimePrefab = std::make_unique<GameObject>();
@@ -34,6 +35,15 @@ Scene LoadScene(){
     slimePrefab->animator = std::make_unique<AnimationController>();
     SpriteAnimation bounce = { "Bounce", 0, 4, 0.1f, true };
     slimePrefab->animator->addClip(bounce);
+    
+    game.prefabs->addPrefab("Slime", std::move(slimePrefab));
+
+    return game;
+}
+
+Scene LoadScene(){
+    //Create Scene
+    Scene sc;
 
     //Create Player Game Object
     auto player = std::make_unique<GameObject>();
@@ -75,9 +85,6 @@ Scene LoadScene(){
 
     //Add the Player Game Object to the Scene
     sc.gameObjects.push_back(std::move(player)); 
-
-    //Add slime prefab to the scene (this is a temporary solution until we remake the file structure for the game)
-    sc.prefabs->addPrefab("Slime", std::move(slimePrefab));
 
     return sc;
 }

@@ -5,7 +5,7 @@
 Shader* mainShader = nullptr;
 Sprite* quadSprite = nullptr;
 
-void Render(SDL_Window* window, Scene& scene) {
+void Render(SDL_Window* window, Scene* scene) {
     //Load shader
     if (!mainShader) {
         mainShader = new Shader("Shaders/default.vert", "Shaders/default.frag"); 
@@ -23,7 +23,7 @@ void Render(SDL_Window* window, Scene& scene) {
     mainShader->setMat4("projection", projection);
 
     //Draw every Game Object
-    for (const auto& obj : scene.gameObjects) {
+    for (const auto& obj : scene->gameObjects) {
         if (obj->destroyed) continue;
         if (obj->textureID == 0) {
              SDL_Log("Object %s has no OpenGL texture loaded!", obj->name.c_str());
