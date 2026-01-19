@@ -25,4 +25,6 @@ namespace Input {
 
 void Shutdown(Scene& scene, SDL_Window* window, SDL_GLContext glContext);
 
+void CleanupScene(Scene& scene);
+
 #endif

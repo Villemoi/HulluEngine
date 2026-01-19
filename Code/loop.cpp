@@ -56,6 +56,9 @@ int Loop(int argc, char* argv[]) {
 
         Calculations(scene, deltaTime);
 
+        //Delete all GameObjects that have been marked for deletion
+        CleanupScene(scene);
+
         Render(window, scene);
     }
 

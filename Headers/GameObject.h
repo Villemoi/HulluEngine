@@ -44,6 +44,36 @@ struct GameObject {
         }
         return position; // Root objects return their local position
     }
+
+    //Prefab logic
+    std::unique_ptr<GameObject> clone() const {
+        auto newNode = std::make_unique<GameObject>();
+        
+        newNode->name = this->name + "_clone";
+        newNode->textureID = this->textureID;
+        newNode->totalFramesInSheet = this->totalFramesInSheet;
+        newNode->position = this->position;
+        newNode->size = this->size;
+
+        // Clone the Animator state
+        if (this->animator) {
+            // Copy the clips and current state
+            *newNode->animator = *this->animator; 
+        }
+
+        // Clone children
+        for (const auto& child : this->children) {
+            newNode->addChild(child->clone());
+        }
+
+        return newNode;
+    }
+
+    bool destroyed = false;
+
+    void destroy() {
+        destroyed = true;
+    }
 };
 
 #endif

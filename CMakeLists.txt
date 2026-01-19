@@ -20,6 +20,7 @@ add_executable(HulluEngine
     Code/shutdown.cpp
     Code/Shader.cpp
     Code/Sprite.cpp
+    Code/cleanup.cpp
 )
 
 # Link the library

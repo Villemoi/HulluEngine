@@ -24,6 +24,7 @@ void Render(SDL_Window* window, Scene& scene) {
 
     //Draw every Game Object
     for (const auto& obj : scene.gameObjects) {
+        if (obj->destroyed) continue;
         if (obj->textureID == 0) {
              SDL_Log("Object %s has no OpenGL texture loaded!", obj->name.c_str());
              continue;
