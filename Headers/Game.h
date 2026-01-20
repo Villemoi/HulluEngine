@@ -1,13 +1,16 @@
 #ifndef GAME_H
 #define GAME_H
-#include "Scene.h"
+#include "SceneManager.h"
 #include "PrefabManager.h"
+#include <memory>
 
 struct Game {
-    std::vector<std::unique_ptr<Scene>> scenes;
+    std::unique_ptr<SceneManager> sceneManager;
     std::unique_ptr<PrefabManager> prefabs;
 
-    Game() : prefabs(std::make_unique<PrefabManager>()) {}
+    Game() : 
+        sceneManager(std::make_unique<SceneManager>()),
+        prefabs(std::make_unique<PrefabManager>()){}
 };
 
 #endif

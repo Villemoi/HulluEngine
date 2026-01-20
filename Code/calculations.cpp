@@ -1,6 +1,6 @@
 #include "../Headers/engine_functions.h"
 
-void Calculations(Scene* scene, float deltaTime, PrefabManager* prefabManager) {
+void Calculations(Scene* scene, float deltaTime, PrefabManager* prefabManager, SceneManager* sceneManager) {
     if (!scene->gameObjects.empty()) {
 
         //this handles the player animation
@@ -50,6 +50,13 @@ void Calculations(Scene* scene, float deltaTime, PrefabManager* prefabManager) {
                     obj->destroy();
                 }
             }
+        }
+
+        if (Input::IsKeyDown(SDL_SCANCODE_1)) {
+            sceneManager->loadScene("Level1");
+        }
+        if (Input::IsKeyDown(SDL_SCANCODE_2)) {
+            sceneManager->loadScene("Level2");
         }
     }
 }
