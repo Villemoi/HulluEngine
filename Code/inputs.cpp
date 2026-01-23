@@ -12,4 +12,14 @@ namespace Input {
         }
         return false;
     }
+//Mouse
+    void GetMousePosition(int& x, int& y) {
+        SDL_GetMouseState(&x, &y);
+    }
+
+    bool IsMouseButtonDown(Uint8 button) {
+        Uint32 buttons = SDL_GetMouseState(NULL, NULL);
+        return (buttons & SDL_BUTTON(button)) != 0;
+    }
+
 }
